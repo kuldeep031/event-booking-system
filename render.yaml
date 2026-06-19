@@ -1,0 +1,25 @@
+# Render Blueprint for the backend API.
+# In Render: New + > Blueprint, point it at this repo. Then set the
+# `sync: false` secrets (MONGO_URI, CLIENT_URL) in the dashboard.
+services:
+  - type: web
+    name: event-booking-api
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: MONGO_URI
+        sync: false # paste your MongoDB Atlas connection string in the dashboard
+      - key: CLIENT_URL
+        sync: false # your deployed frontend URL, e.g. https://event-booking.vercel.app

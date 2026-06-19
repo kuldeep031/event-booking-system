@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Mona Sans (variable) via Fontsource CDN; falls back to Hanken Grotesk. */
+@font-face {
+  font-family: 'Mona Sans';
+  src: url('https://cdn.jsdelivr.net/fontsource/fonts/mona-sans:vf@latest/latin-wght-normal.woff2')
+    format('woff2');
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white font-sans text-[15px] leading-relaxed text-muted antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-display font-bold tracking-tight text-ink;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  }
+
+  /* Buttons — pill shaped per the spec (radius.md = 50px). ---------------- */
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-pill px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink/40 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply btn bg-ink text-white hover:bg-ink/90;
+  }
+  .btn-secondary {
+    @apply btn border border-ink/15 bg-white text-ink hover:bg-mist;
+  }
+  .btn-danger {
+    @apply btn bg-rose-600 text-white hover:bg-rose-700;
+  }
+  .btn-ghost {
+    @apply btn text-muted hover:bg-mist;
+  }
+
+  /* Forms ----------------------------------------------------------------- */
+  .input {
+    @apply w-full rounded-2xl border border-ink/15 bg-white px-4 py-2.5 text-sm text-ink shadow-none outline-none transition placeholder:text-muted/60 focus:border-ink focus:ring-2 focus:ring-ink/10;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-ink;
+  }
+
+  /* Surfaces -------------------------------------------------------------- */
+  .card {
+    @apply rounded-3xl border border-ink/10 bg-white shadow-soft;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-pill px-3 py-1 text-xs font-semibold;
+  }
+}
