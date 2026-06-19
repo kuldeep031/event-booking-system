@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://REPLACE-WITH-YOUR-RENDER-URL.onrender.com/api/:path*"
+      "destination": "https://event-booking-api-vtr4.onrender.com"
     },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
