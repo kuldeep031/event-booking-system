@@ -4,7 +4,7 @@ A full-stack web application where users can register, browse events, book seats
 
 > Submitted as part of a Full Stack Developer Internship Assessment.
 
-**🔗 Live demo:** _<add your deployed URL here>_ · **Demo login:** `demo@example.com` / `demo123` (admin: `admin@example.com` / `admin123`)
+**🔗 Live demo:** https://event-booking-system-ashy.vercel.app/ · **Demo login:** `demo@example.com` / `demo123` (admin: `admin@example.com` / `admin123`)
 
 ---
 
@@ -302,7 +302,7 @@ The app is structured for a standard split deployment:
 
 **Why the proxy (cross-site cookie fix):** the frontend and backend are on different domains, so the httpOnly auth cookie would otherwise be a *third-party* cookie (blocked by Safari, being phased out by Chrome). Routing `/api` through Vercel keeps the browser talking to a single origin, so the cookie is first-party and authentication is reliable everywhere. Update the destination URL in `vercel.json` to your Render URL after the backend is deployed.
 
-> Live demo: _<add your deployed URL here after deploying>_
+> Live demo: https://event-booking-system-ashy.vercel.app/
 
 ---
 
