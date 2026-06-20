@@ -4,6 +4,8 @@ A full-stack web application where users can register, browse events, book seats
 
 > Submitted as part of a Full Stack Developer Internship Assessment.
 
+**🔗 Live demo:** _<add your deployed URL here>_ · **Demo login:** `demo@example.com` / `demo123` (admin: `admin@example.com` / `admin123`)
+
 ---
 
 ## Table of Contents
@@ -16,6 +18,7 @@ A full-stack web application where users can register, browse events, book seats
 - [API Documentation](#api-documentation)
 - [Assumptions](#assumptions)
 - [Design Decisions](#design-decisions)
+- [Deployment](#deployment)
 
 ---
 
