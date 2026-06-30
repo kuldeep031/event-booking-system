@@ -1,42 +1,44 @@
 import { User } from '../models/User.js';
-import { ApiError } from '../utils/ApiError.js';
-import { asyncHandler } from '../utils/asyncHandler.js';
 import { verifyToken, COOKIE_NAME } from '../utils/token.js';
 
 // Requires a valid JWT (httpOnly cookie, or Bearer header as a fallback).
-export const protect = asyncHandler(async (req, _res, next) => {
-  let token = req.cookies?.[COOKIE_NAME];
-
-  if (!token && req.headers.authorization?.startsWith('Bearer ')) {
-    token = req.headers.authorization.split(' ')[1];
-  }
-
-  if (!token) {
-    throw new ApiError(401, 'Not authenticated. Please log in.');
-  }
-
-  let payload;
+export const protect = async (req, res, next) => {
   try {
-    payload = verifyToken(token);
-  } catch {
-    throw new ApiError(401, 'Session expired or invalid. Please log in again.');
-  }
+    let token = req.cookies?.[COOKIE_NAME];
 
-  const user = await User.findById(payload.sub);
-  if (!user) {
-    throw new ApiError(401, 'User no longer exists.');
-  }
+    if (!token && req.headers.authorization?.startsWith('Bearer ')) {
+      token = req.headers.authorization.split(' ')[1];
+    }
 
-  req.user = user;
-  next();
-});
+    if (!token) {
+      return res.status(401).json({ message: 'Not authenticated. Please log in.' });
+    }
+
+    let payload;
+    try {
+      payload = verifyToken(token);
+    } catch {
+      return res.status(401).json({ message: 'Session expired or invalid. Please log in again.' });
+    }
+
+    const user = await User.findById(payload.sub);
+    if (!user) {
+      return res.status(401).json({ message: 'User no longer exists.' });
+    }
+
+    req.user = user;
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
 
 // Restricts a route to one or more roles. Use after `protect`.
 export const authorize =
   (...roles) =>
-  (req, _res, next) => {
+  (req, res, next) => {
     if (!roles.includes(req.user.role)) {
-      return next(new ApiError(403, 'You do not have permission to perform this action.'));
+      return res.status(403).json({ message: 'You do not have permission to perform this action.' });
     }
     next();
   };
